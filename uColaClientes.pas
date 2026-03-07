@@ -2,10 +2,13 @@ unit uColaClientes;
 
 interface
 
+uses uCliente;
+
 type
+
     // Estructura del nodo
     nodo = record
-        info: integer; // Información almacenada en el nodo
+        info: tCliente; // Información almacenada en el nodo
         sig: ^nodo;   // Puntero al siguiente nodo
     end;
     
@@ -18,9 +21,9 @@ type
 
 procedure initialize_queue(var c: tCola);
 function empty_queue(c: tCola): boolean;
-function first(c: tCola): integer;
-function last(c: tCola): integer;
-procedure enqueue(var c: tCola; x: integer);
+function first(c: tCola): tCliente;
+function last(c: tCola): tCliente;
+procedure enqueue(var c: tCola; x: tCliente);
 procedure dequeue(var c: tCola);
 
 {  --- Operaciones adicionales de la cola --- }
@@ -29,6 +32,8 @@ function toString(c: tCola): string;
 procedure clear(var c: tCola);
 function num_elems(c: tCola): integer;
 procedure copy(c : tCola; var c2: tCola);
+
+
 
 
 implementation
@@ -51,28 +56,28 @@ begin
 end;
 
 // Obtener el primer elemento de la cola
-function first(c: tCola): integer;
+function first(c: tCola): tCliente;
 begin
     if not empty_queue(c) then
-        first := c.first^.info // Devolver la información del primer nodo
+        assign(first, c.first^.info); // Devolver la información del primer nodo
 end;
 
 // Obtener el último elemento de la cola
-function last(c: tCola): integer;
+function last(c: tCola): tCliente;
 begin
     if not empty_queue(c) then
-        last := c.last^.info // Devolver la información del último nodo
+        assign(last, c.last^.info); // Devolver la información del último nodo
 end;
 
 
 
 // Agregar un elemento a la cola
-procedure enqueue(var c: tCola; x: integer);
+procedure enqueue(var c: tCola; x: tCliente);
 var
     nuevo: ^nodo; // Nuevo nodo
 begin
     new(nuevo); // Asignar memoria para el nuevo nodo
-    nuevo^.info := x; // Establecer la información del nuevo nodo
+    assign(nuevo^.info, x); // Asignar la información al nuevo nodo
     nuevo^.sig := nil; // Establecer el siguiente nodo a nil
     if empty_queue(c) then
         c.first := nuevo // Establecer el primer nodo al nuevo nodo
@@ -110,7 +115,7 @@ begin
     s := '['; // Inicializar la cadena de caracteres
     while aux <> nil do
     begin
-        s := s + IntToStr(aux^.info); // Agregar la información del nodo a la cadena
+        s := s + uCliente.toString(aux^.info); // Agregar la información del nodo a la cadena
         aux := aux^.sig; // Avanzar al siguiente nodo
         if aux <> nil then
             s := s + ', '; // Agregar una coma si no es el último nodo
@@ -156,6 +161,5 @@ begin
         aux := aux^.sig; // Avanzar al siguiente nodo
     end;
 end;
-
 
 end.

@@ -24,8 +24,18 @@ end;
 
 
 procedure eliminar_clientes_inactivos(var c: tCola);
+var
+    cliente: tCliente;
+    size, i: integer;
 begin
-    writeLn('No implementado aún.');
+    size := num_elems(c);
+    for i := 1 to size do
+    begin
+        cliente := first(c);
+        dequeue(c);
+        if esActivo(cliente) then
+            enqueue(c, cliente);
+    end;
 end;
 
 

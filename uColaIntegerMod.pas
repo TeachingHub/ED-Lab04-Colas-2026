@@ -12,6 +12,8 @@ type
     // Estructura de la cola
     tCola = record
         first, last: ^nodo; // Punteros al primer y último nodo
+        {Ejercicio 2.1: Modificar la definición de la cola}
+        size: integer; // Tamaño de la cola
     end;
 
 { --- Operaciones básicas de la cola --- }
@@ -42,6 +44,8 @@ procedure initialize_queue(var c: tCola);
 begin
     c.first := nil; // Establecer el primer nodo a nil
     c.last := nil;  // Establecer el último nodo a nil
+    {Ejercicio 2.2: Modificar funciones y procedimientos}
+    c.size := 0;    // Inicializar el tamaño de la cola
 end;
 
 // Verificar si la cola está vacía
@@ -79,6 +83,8 @@ begin
     else
         c.last^.sig := nuevo; // Establecer el siguiente nodo del último nodo al nuevo nodo
     c.last := nuevo; // Establecer el último nodo al nuevo nodo
+    {Ejercicio 2.2: Modificar funciones y procedimientos}
+    c.size := c.size + 1; // Incrementar el tamaño de la cola
 end;
 
 // Eliminar un elemento de la cola
@@ -93,6 +99,8 @@ begin
         dispose(aux); // Liberar la memoria del nodo auxiliar
         if c.first = nil then
             c.last := nil; // Establecer el último nodo a nil si la cola está vacía
+        {Ejercicio 2.2: Modificar funciones y procedimientos}
+        c.size := c.size - 1; // Decrementar el tamaño de la cola
     end;
 end;
 
@@ -129,7 +137,7 @@ end;
 
 // Contar el número de elementos de la cola
 function num_elems(c: tCola): integer;
-var
+{var
     aux: ^nodo; // Nodo auxiliar
     count: integer; // Contador
 begin
@@ -141,6 +149,10 @@ begin
         aux := aux^.sig; // Avanzar al siguiente nodo
     end;
     num_elems := count; // Devolver el contador
+    }
+begin
+    {Ejercicio 2.3: Implementar la función `num_elems`}
+    num_elems := c.size; // Devolver el tamaño de la cola
 end;
 
 // Copiar una cola
