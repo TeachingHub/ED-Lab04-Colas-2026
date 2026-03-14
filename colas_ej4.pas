@@ -54,7 +54,7 @@ end;
 {
     Ejercicio 4.2: Sumar colas
 
-    Desarrollar un subprograma que reciba dos colas de enteros con el mismo
+    Desarrollar un subprograma que reciba dos colas de enteros con distinto
     número de elementos y devuelva una nueva cola con la suma de los elementos
     de las colas originales.
 
